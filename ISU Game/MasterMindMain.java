@@ -20,6 +20,8 @@ class MasterMindMain
 	int code[] = mmm.CodeGeneration ();
 
 	int UserGuess[] = mmm.UserInput (code);
+	
+	mmm.UserInputVerify(UserGuess);
 
     }
 }
@@ -116,6 +118,11 @@ class MasterMindMethods
 	    System.out.println();
 	}
 	return UserGuess;
+    }
+    
+    void UserInputVerify(int UserGuess[])
+    {
+    
     }
 }
 
