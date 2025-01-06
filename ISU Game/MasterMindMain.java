@@ -8,20 +8,20 @@ class MasterMindMain
 
 	MasterMindMethods mmm = new MasterMindMethods ();
 
-	// boolean pwdverify = mmm.Login ();
-	// if (pwdverify == true)
-	// {
-	//     System.out.println ("Password Accepted");
-	// }
-	// else
-	// {
-	//     System.out.println ("Password Incorrect");
-	// }
-	int code[] = mmm.CodeGeneration ();
-
-	int UserGuess[] = mmm.UserInput (code);
-	
-	mmm.UserInputVerify(UserGuess);
+	boolean pwdverify = mmm.Login ();
+	if (pwdverify == true)
+	{
+	    System.out.println ("Password Accepted");
+	}
+	else
+	{
+	    System.out.println ("Password Incorrect");
+	}
+	// int code[] = mmm.CodeGeneration ();
+	// 
+	// int UserGuess[] = mmm.UserInput (code);
+	// 
+	// mmm.UserInputVerify(UserGuess);
 
     }
 }
@@ -48,12 +48,12 @@ class MasterMindMethods
 	    input = br.readLine ();
 	    if (!input.equals (password))
 	    {
-		System.out.print ("Please enter your password: ");
+		System.out.print ("Password was Incorrect,please enter your password: ");
 		input = br.readLine ();
 
 		if (!input.equals (password))
 		{
-		    System.out.print ("Please enter your password: ");
+		    System.out.print ("Password was Incorrect, please enter your password: ");
 		    input = br.readLine ();
 
 		    if (!input.equals (password))
