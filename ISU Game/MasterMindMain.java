@@ -17,11 +17,11 @@ class MasterMindMain
 	{
 	    System.out.println ("Password Incorrect");
 	}
-	// int code[] = mmm.CodeGeneration ();
-	// 
-	// int UserGuess[] = mmm.UserInput (code);
-	// 
-	// mmm.UserInputVerify(UserGuess);
+	int code[] = mmm.CodeGeneration ();
+
+	int UserGuess[] = mmm.UserInput ();
+
+	mmm.UserInputVerify(UserGuess,code);
 
     }
 }
@@ -48,7 +48,7 @@ class MasterMindMethods
 	    input = br.readLine ();
 	    if (!input.equals (password))
 	    {
-		System.out.print ("Password was Incorrect,please enter your password: ");
+		System.out.print ("Password was Incorrect, please enter your password: ");
 		input = br.readLine ();
 
 		if (!input.equals (password))
@@ -102,7 +102,7 @@ class MasterMindMethods
     }
 
 
-    int[] UserInput (int code[])
+    int[] UserInput ()
 	throws java.io.IOException
     {
 	BufferedReader br = new BufferedReader (new InputStreamReader (System.in));
@@ -112,17 +112,21 @@ class MasterMindMethods
 	System.out.println ("Guess the 5 digit code (Hint = its between 1-10)");
 	for (int count = 0 ; count < 5 ; count++)
 	{
-	    System.out.print ("Digit " + (count+1) + ":");
+	    System.out.print ("Digit " + (count + 1) + ":");
 	    input = br.readLine ();
 	    UserGuess [count] = Integer.parseInt (input);
-	    System.out.println();
+	    System.out.println ();
 	}
 	return UserGuess;
     }
-    
-    void UserInputVerify(int UserGuess[])
+
+
+    void UserInputVerify (int UserGuess[], int code[])
     {
-    
+	if(UserGuess[]==code[])
+	{
+	    
+	}
     }
 }
 
