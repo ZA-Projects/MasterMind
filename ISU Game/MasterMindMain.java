@@ -8,20 +8,21 @@ class MasterMindMain
 
 	MasterMindMethods mmm = new MasterMindMethods ();
 
-	boolean pwdverify = mmm.Login ();
-	if (pwdverify == true)
-	{
-	    System.out.println ("Password Accepted");
-	}
-	else
-	{
-	    System.out.println ("Password Incorrect");
-	}
+	// boolean pwdverify = mmm.Login ();
+	// if (pwdverify == true)
+	// {
+	//     System.out.println ("Password Accepted");
+	// }
+	// else
+	// {
+	//     System.out.println ("Password Incorrect");
+	// }
 	int code[] = mmm.CodeGeneration ();
 
 	int UserGuess[] = mmm.UserInput ();
 
-	mmm.UserInputVerify(UserGuess,code);
+	int rightnum = mmm.UserInputVerify (UserGuess, code);
+	System.out.println("You got "+rightnum+" numbers right");
 
     }
 }
@@ -121,12 +122,18 @@ class MasterMindMethods
     }
 
 
-    void UserInputVerify (int UserGuess[], int code[])
+    int UserInputVerify (int UserGuess[], int code[])
     {
-	if(UserGuess[]==code[])
+	int rightnum = 0, rightnumplace = 0;
+	for (int count = 0 ; count < 5 ; count++)
 	{
-	    
+	    if (UserGuess [count] == code [count])
+	    {
+		rightnum++;
+	    }
+
 	}
+	return rightnum;
     }
 }
 
