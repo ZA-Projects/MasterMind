@@ -18,11 +18,16 @@ class MasterMindMain
 	//     System.out.println ("Password Incorrect");
 	// }
 	int code[] = mmm.CodeGeneration ();
+	for (int count = 0 ; count < 5 ; count++)
+	{
+	    System.out.println (code [count]);
+	}
 
+	int [][] board = new int [8][4];
 	int UserGuess[] = mmm.UserInput ();
 
 	int rightnum = mmm.UserInputVerify (UserGuess, code);
-	System.out.println("You got "+rightnum+" numbers right");
+	System.out.println ("You got " + rightnum + " numbers right");
 
     }
 }
@@ -97,7 +102,7 @@ class MasterMindMethods
 	int[] code = new int [5];
 	for (int count = 0 ; count < 5 ; count++)
 	{
-	    code [count] = (int) (Math.random () * 10) + 1;
+	    code [count] = (int) (Math.random () * 9) + 1;
 	}
 	return code;
     }
@@ -110,7 +115,7 @@ class MasterMindMethods
 
 	String input;
 	int[] UserGuess = new int [5];
-	System.out.println ("Guess the 5 digit code (Hint = its between 1-10)");
+	System.out.println ("Guess the 5 digit code (Hint = its between 1-9)");
 	for (int count = 0 ; count < 5 ; count++)
 	{
 	    System.out.print ("Digit " + (count + 1) + ":");
@@ -129,10 +134,23 @@ class MasterMindMethods
 	{
 	    if (UserGuess [count] == code [count])
 	    {
+		rightnumplace++;
 		rightnum++;
+	    }
+	    else
+	    {
+		for (int count2 = 0 ; count2 < 5 ; count2++)
+		{
+		    if (UserGuess [count] == code [count2])
+		    {
+			rightnum++;
+			break;
+		    }
+		}
 	    }
 
 	}
+	System.out.println ("You got " + rightnumplace + " numbers in the right place");
 	return rightnum;
     }
 }
