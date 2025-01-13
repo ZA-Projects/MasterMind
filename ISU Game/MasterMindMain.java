@@ -1,101 +1,66 @@
 import java.io.*;
+
 class MasterMindMain
 {
-    public static void main (String args[])
-	throws java.io.IOException
+    public static void main (String args[]) throws java.io.IOException
     {
 	BufferedReader br = new BufferedReader (new InputStreamReader (System.in));
-
 	MasterMindMethods mmm = new MasterMindMethods ();
 
-	// boolean pwdverify = mmm.Login ();
-	// if (pwdverify == true)
-	// {
-	//     System.out.println ("Password Accepted");
-	// }
-	// else
-	// {
-	//     System.out.println ("Password Incorrect");
-	// }
 	int code[] = mmm.CodeGeneration ();
+	System.out.println ("Code generated (for debugging purposes):");
 	for (int count = 0 ; count < 5 ; count++)
 	{
-	    System.out.println (code [count]);
+	    System.out.print (code [count] + " ");
+	}
+	System.out.println ();
+
+	int[] [] board = new int [8] [5];
+	for (int count = 0 ; count < 8 ; count++)
+	{
+	    for (int count2 = 0 ; count2 < 5 ; count2++)
+	    {
+		board [count] [count2] = -1;
+	    }
 	}
 
-	int [][] board = new int [8][4];
-	int UserGuess[] = mmm.UserInput ();
-
-	int rightnum = mmm.UserInputVerify (UserGuess, code);
-	System.out.println ("You got " + rightnum + " numbers right");
-
-    }
-}
-class MasterMindMethods
-{
-    boolean pwdverify = true;
-    String name, password, input;
-    BufferedReader br = new BufferedReader (new InputStreamReader (System.in));
-
-    boolean Login ()
-	throws java.io.IOException
-    {
-	System.out.print ("What is your name?: ");
-	name = br.readLine ();
-
-	System.out.print ("Have you played before(yes/no)?: ");
-	input = br.readLine ();
-	if (input.equalsIgnoreCase ("yes"))
+	int guessCount = 0;
+	boolean gameWon = false;
+	while (guessCount < 8 && !gameWon)
 	{
-	    FileReader fr = new FileReader (name + ".txt");
-	    BufferedReader bfr = new BufferedReader (fr);
-	    password = bfr.readLine ();
-	    System.out.println ("Please enter your password: ");
-	    input = br.readLine ();
-	    if (!input.equals (password))
+	    int[] UserGuess = mmm.UserInput ();
+
+	    for (int count = 0 ; count < 5 ; count++)
 	    {
-		System.out.print ("Password was Incorrect, please enter your password: ");
-		input = br.readLine ();
+		board [guessCount] [count] = UserGuess [count];
+	    }
 
-		if (!input.equals (password))
-		{
-		    System.out.print ("Password was Incorrect, please enter your password: ");
-		    input = br.readLine ();
+	    int rightnum = mmm.UserInputVerify (UserGuess, code);
 
-		    if (!input.equals (password))
-		    {
-			pwdverify = false;
-		    }
-		    else
-		    {
-			pwdverify = true;
-		    }
-		}
-		else
-		{
-		    pwdverify = true;
-		}
+	    mmm.displayBoard (board, guessCount);
+
+	    System.out.println ("You got " + rightnum + " numbers right.");
+	    if (rightnum == 5)
+	    {
+		System.out.println ("Congratulations! You've guessed the correct code.");
+		gameWon = true;
 	    }
 	    else
 	    {
-		pwdverify = true;
+		guessCount++;
 	    }
-
 	}
-	if (input.equalsIgnoreCase ("no"))
+
+	if (!gameWon)
 	{
-	    FileWriter fw = new FileWriter (name + ".txt");
-
-	    System.out.print ("Create a password: ");
-	    password = br.readLine ();
-	    fw.write (password + "\r\n");
-	    fw.close ();
-
-	    pwdverify = true;
+	    System.out.println ("Game Over! You've used all guesses.");
 	}
-	return pwdverify;
     }
+}
 
+class MasterMindMethods
+{
+    BufferedReader br = new BufferedReader (new InputStreamReader (System.in));
 
     int[] CodeGeneration ()
     {
@@ -108,28 +73,24 @@ class MasterMindMethods
     }
 
 
-    int[] UserInput ()
-	throws java.io.IOException
+    int[] UserInput () throws java.io.IOException
     {
-	BufferedReader br = new BufferedReader (new InputStreamReader (System.in));
-
-	String input;
 	int[] UserGuess = new int [5];
-	System.out.println ("Guess the 5 digit code (Hint = its between 1-9)");
+	System.out.println ("Guess the 5 digit code (Hint = its between 1-9):");
 	for (int count = 0 ; count < 5 ; count++)
 	{
-	    System.out.print ("Digit " + (count + 1) + ":");
-	    input = br.readLine ();
+	    System.out.print ("Digit " + (count + 1) + ": ");
+	    String input = br.readLine ();
 	    UserGuess [count] = Integer.parseInt (input);
-	    System.out.println ();
 	}
 	return UserGuess;
     }
 
 
-    int UserInputVerify (int UserGuess[], int code[])
+    int UserInputVerify (int[] UserGuess, int[] code)
     {
-	int rightnum = 0, rightnumplace = 0;
+	int rightnum = 0;
+	int rightnumplace = 0;
 	for (int count = 0 ; count < 5 ; count++)
 	{
 	    if (UserGuess [count] == code [count])
@@ -148,11 +109,29 @@ class MasterMindMethods
 		    }
 		}
 	    }
-
 	}
-	System.out.println ("You got " + rightnumplace + " numbers in the right place");
+	System.out.println ("You got " + rightnumplace + " numbers in the right place.");
 	return rightnum;
     }
+
+
+    void displayBoard (int[] [] board, int guessCount)
+    {
+	System.out.println ("\nBoard so far:");
+	for (int count = 0 ; count <= guessCount ; count++)
+	{
+	    for (int count2 = 0 ; count2 < 5 ; count2++)
+	    {
+		if (board [count] [count2] == -1)
+		{
+		    System.out.print ("_ "); 
+		}
+		else
+		{
+		    System.out.print (board [count] [count2] + " ");
+		}
+	    }
+	    System.out.println ();
+	}
+    }
 }
-
-
