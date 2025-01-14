@@ -15,55 +15,59 @@ class MasterMindMain
 	else
 	{
 	    System.out.println ("Password Incorrect");
+
 	}
 
-	int code[] = mmm.CodeGeneration ();
-	System.out.println ("Code generated (for debugging purposes):");
-	for (int count = 0 ; count < 5 ; count++)
+	while (pwdverify == true)
 	{
-	    System.out.print (code [count] + " ");
-	}
-	System.out.println ();
-
-	int[] [] board = new int [8] [5];
-	for (int count = 0 ; count < 8 ; count++)
-	{
-	    for (int count2 = 0 ; count2 < 5 ; count2++)
-	    {
-		board [count] [count2] = -1;
-	    }
-	}
-
-	int guessCount = 0;
-	boolean gameWon = false;
-	while (guessCount < 8 && !gameWon)
-	{
-	    int[] UserGuess = mmm.UserInput ();
-
+	    int code[] = mmm.CodeGeneration ();
+	    System.out.println ("Code generated (for debugging purposes):");
 	    for (int count = 0 ; count < 5 ; count++)
 	    {
-		board [guessCount] [count] = UserGuess [count];
+		System.out.print (code [count] + " ");
 	    }
+	    System.out.println ();
 
-	    int rightnum = mmm.UserInputVerify (UserGuess, code);
-
-	    mmm.displayBoard (board, guessCount);
-
-	    System.out.println ("You got " + rightnum + " numbers right.");
-	    if (rightnum == 5)
+	    int[] [] board = new int [8] [5];
+	    for (int count = 0 ; count < 8 ; count++)
 	    {
-		System.out.println ("Congratulations! You've guessed the correct code.");
-		gameWon = true;
+		for (int count2 = 0 ; count2 < 5 ; count2++)
+		{
+		    board [count] [count2] = -1;
+		}
 	    }
-	    else
-	    {
-		guessCount++;
-	    }
-	}
 
-	if (!gameWon)
-	{
-	    System.out.println ("Game Over! You've used all guesses.");
+	    int guessCount = 0;
+	    boolean gameWon = false;
+	    while (guessCount < 8 && !gameWon)
+	    {
+		int[] UserGuess = mmm.UserInput ();
+
+		for (int count = 0 ; count < 5 ; count++)
+		{
+		    board [guessCount] [count] = UserGuess [count];
+		}
+
+		int rightnum = mmm.UserInputVerify (UserGuess, code);
+
+		mmm.displayBoard (board, guessCount);
+
+		System.out.println ("You got " + rightnum + " numbers right.");
+		if (rightnum == 5)
+		{
+		    System.out.println ("Congratulations! You've guessed the correct code.");
+		    gameWon = true;
+		}
+		else
+		{
+		    guessCount++;
+		}
+	    }
+
+	    if (gameWon == false)
+	    {
+		System.out.println ("Game Over! You've used all guesses.");
+	    }
 	}
     }
 }
@@ -149,11 +153,23 @@ class MasterMindMethods
     {
 	int[] UserGuess = new int [5];
 	System.out.println ("Guess the 5 digit code (Hint = its between 1-9):");
+
+	char ch = ' ';
 	for (int count = 0 ; count < 5 ; count++)
 	{
 	    System.out.print ("Digit " + (count + 1) + ": ");
 	    String input = br.readLine ();
-	    UserGuess [count] = Integer.parseInt (input);
+	    ch = input.charAt (count);
+	    if (Character.isDigit (ch) == true)
+	    {
+		System.out.println ("Invalid input, enter a number");
+	    }
+	    else
+	    {
+		UserGuess [count] = Integer.parseInt (input);
+
+	    }
+
 	}
 	return UserGuess;
     }
