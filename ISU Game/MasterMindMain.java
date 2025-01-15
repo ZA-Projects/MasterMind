@@ -1,3 +1,9 @@
+gamesplayed
+games won
+games lost
+best game
+totalguesses
+
 import java.io.*;
 
 class MasterMindMain
@@ -67,6 +73,10 @@ class MasterMindMain
 	    if (gameWon == false)
 	    {
 		System.out.println ("Game Over! You've used all guesses.");
+	    }
+	    else
+	    {
+		break;
 	    }
 	}
     }
@@ -159,16 +169,16 @@ class MasterMindMethods
 	{
 	    System.out.print ("Digit " + (count + 1) + ": ");
 	    String input = br.readLine ();
-	    ch = input.charAt (count);
-	    if (Character.isDigit (ch) == true)
-	    {
-		System.out.println ("Invalid input, enter a number");
-	    }
-	    else
-	    {
+	    // ch = input.charAt (count);
+	    // if (Character.isDigit (ch) == true)
+	    // {
+	    //     System.out.println ("Invalid input, enter a number");
+	    // }
+	    // else
+	    // {
 		UserGuess [count] = Integer.parseInt (input);
-
-	    }
+	    // 
+	    // }
 
 	}
 	return UserGuess;
