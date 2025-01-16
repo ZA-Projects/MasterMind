@@ -1,8 +1,8 @@
-gamesplayed
-games won
-games lost
-best game
-totalguesses
+// gamesplayed
+//     games won
+//     games lost
+//     best game
+//     totalguesses
 
 import java.io.*;
 
@@ -13,7 +13,7 @@ class MasterMindMain
 	BufferedReader br = new BufferedReader (new InputStreamReader (System.in));
 	MasterMindMethods mmm = new MasterMindMethods ();
 
-	boolean pwdverify = mmm.Login ();
+	boolean pwdverify = true; // mmm.Login ();
 	if (pwdverify == true)
 	{
 	    System.out.println ("Password Accepted");
@@ -169,16 +169,19 @@ class MasterMindMethods
 	{
 	    System.out.print ("Digit " + (count + 1) + ": ");
 	    String input = br.readLine ();
-	    // ch = input.charAt (count);
-	    // if (Character.isDigit (ch) == true)
-	    // {
-	    //     System.out.println ("Invalid input, enter a number");
-	    // }
-	    // else
-	    // {
-		UserGuess [count] = Integer.parseInt (input);
-	    // 
-	    // }
+
+	    ch = input.charAt (0);
+	    if (Character.isDigit (ch) == false)
+	    {
+		System.out.println ("Invalid input, enter a number");
+		count--;
+	    }
+	    else
+	    {
+		UserGuess [count] = Integer.parseInt (ch + "");
+
+	    }
+
 
 	}
 	return UserGuess;
