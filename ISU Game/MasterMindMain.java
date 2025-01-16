@@ -1,8 +1,9 @@
 // gamesplayed
-//     games won
-//     games lost
-//     best game
+//     gameswon
+//     gameslost
+//     bestgame
 //     totalguesses
+// currentGameGuesses
 
 import java.io.*;
 
@@ -13,7 +14,7 @@ class MasterMindMain
 	BufferedReader br = new BufferedReader (new InputStreamReader (System.in));
 	MasterMindMethods mmm = new MasterMindMethods ();
 
-	boolean pwdverify = true; // mmm.Login ();
+	boolean pwdverify = mmm.Login ();
 	if (pwdverify == true)
 	{
 	    System.out.println ("Password Accepted");
@@ -136,13 +137,62 @@ class MasterMindMethods
 	if (input.equalsIgnoreCase ("no"))
 	{
 	    FileWriter fw = new FileWriter (name + ".txt");
-
-	    System.out.print ("Create a password: ");
+	    System.out.println ("Create a password with the following conditions: ");
+	    System.out.println ("- between 6 and 12 characters long");
+	    System.out.println ("- at least one upper case letter");
+	    System.out.println ("- at least one lower case letter");
+	    System.out.println ("- at least one number");
+	    System.out.println ("- no special characters or spaces");
+	    System.out.print (":");
 	    password = br.readLine ();
-	    fw.write (password + "\r\n");
-	    fw.close ();
 
-	    pwdverify = true;
+	    if (password.length () >= 6 && password.length () <= 12)
+	    {
+		boolean verification = false;
+		boolean LowerCaseverify = true;
+		boolean UpperCaseverify = true;
+		boolean Digitverify = true;
+		boolean Whitespaceverify = false;
+		boolean specialcharacterverify = false;
+		char ch;
+		for (int count = 0 ; count < password.length () ; count++)
+		{
+		    ch = password.charAt (count);
+		    if (Character.isLowerCase (ch) == true)
+		    {
+			LowerCaseverify = true;
+		    }
+		    if (Character.isUpperCase (ch) == true)
+		    {
+			UpperCaseverify = true;
+		    }
+		    if (Character.isDigit (ch) == true)
+		    {
+			Digitverify = true;
+		    }
+		    if (Character.isWhitespace (ch) == true)
+		    {
+			Whitespaceverify = true;
+		    }
+		    if (Character.isLowerCase (ch) == false && Character.isUpperCase (ch) == false && Character.isDigit (ch) == false && Character.isWhitespace (ch) == false)
+		    {
+			specialcharacterverify = true;
+		    }
+
+		}
+		if (LowerCaseverify == true && UpperCaseverify == true && Digitverify == true && Whitespaceverify == false && specialcharacterverify == false)
+		{
+		    fw.write (password + "\r\n");
+		    fw.close ();
+		    pwdverify = true;
+		}
+		else
+		{
+		    pwdverify = false;
+		}
+
+	    }
+
 	}
 	return pwdverify;
     }
