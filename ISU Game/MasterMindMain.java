@@ -85,7 +85,7 @@ class MasterMindMain
 
 class MasterMindMethods
 {
-    boolean pwdverify = true;
+    boolean pwdverify = false;
     String name, password, input;
     BufferedReader br = new BufferedReader (new InputStreamReader (System.in));
 
@@ -136,65 +136,78 @@ class MasterMindMethods
 	}
 	if (input.equalsIgnoreCase ("no"))
 	{
-	    FileWriter fw = new FileWriter (name + ".txt");
-	    System.out.println ("Create a password with the following conditions: ");
-	    System.out.println ("- between 6 and 12 characters long");
-	    System.out.println ("- at least one upper case letter");
-	    System.out.println ("- at least one lower case letter");
-	    System.out.println ("- at least one number");
-	    System.out.println ("- no special characters or spaces");
-	    System.out.print (":");
-	    password = br.readLine ();
-
-	    if (password.length () >= 6 && password.length () <= 12)
+	    do
 	    {
-		boolean verification = false;
-		boolean LowerCaseverify = true;
-		boolean UpperCaseverify = true;
-		boolean Digitverify = true;
-		boolean Whitespaceverify = false;
-		boolean specialcharacterverify = false;
-		char ch;
-		for (int count = 0 ; count < password.length () ; count++)
-		{
-		    ch = password.charAt (count);
-		    if (Character.isLowerCase (ch) == true)
-		    {
-			LowerCaseverify = true;
-		    }
-		    if (Character.isUpperCase (ch) == true)
-		    {
-			UpperCaseverify = true;
-		    }
-		    if (Character.isDigit (ch) == true)
-		    {
-			Digitverify = true;
-		    }
-		    if (Character.isWhitespace (ch) == true)
-		    {
-			Whitespaceverify = true;
-		    }
-		    if (Character.isLowerCase (ch) == false && Character.isUpperCase (ch) == false && Character.isDigit (ch) == false && Character.isWhitespace (ch) == false)
-		    {
-			specialcharacterverify = true;
-		    }
+		FileWriter fw = new FileWriter (name + ".txt");
+		System.out.println ("Create a password with the following conditions: ");
+		System.out.println ("- between 6 and 12 characters long");
+		System.out.println ("- at least one upper case letter");
+		System.out.println ("- at least one lower case letter");
+		System.out.println ("- at least one number");
+		System.out.println ("- no special characters or spaces");
+		System.out.print (":");
+		password = br.readLine ();
 
-		}
-		if (LowerCaseverify == true && UpperCaseverify == true && Digitverify == true && Whitespaceverify == false && specialcharacterverify == false)
+		if (password.length () >= 6 && password.length () <= 12)
 		{
-		    fw.write (password + "\r\n");
-		    fw.close ();
-		    pwdverify = true;
+		    boolean verification = false;
+		    boolean LowerCaseverify = false;
+		    boolean UpperCaseverify = false;
+		    boolean Digitverify = false;
+		    boolean Whitespaceverify = false;
+		    boolean specialcharacterverify = false;
+		    char ch;
+		    for (int count = 0 ; count < password.length () ; count++)
+		    {
+			ch = password.charAt (count);
+			if (Character.isLowerCase (ch) == true)
+			{
+			    LowerCaseverify = true;
+			}
+			if (Character.isUpperCase (ch) == true)
+			{
+			    UpperCaseverify = true;
+			}
+			if (Character.isDigit (ch) == true)
+			{
+			    Digitverify = true;
+			}
+			if (Character.isWhitespace (ch) == true)
+			{
+			    Whitespaceverify = true;
+			}
+			if (Character.isLowerCase (ch) == false && Character.isUpperCase (ch) == false && Character.isDigit (ch) == false && Character.isWhitespace (ch) == false)
+			{
+			    specialcharacterverify = true;
+			}
+
+		    }
+		    if (LowerCaseverify == true && UpperCaseverify == true && Digitverify == true && Whitespaceverify == false && specialcharacterverify == false)
+		    {
+			fw.write (password + "\r\n");
+			fw.close ();
+			pwdverify = true;
+		    }
+		    else
+		    {
+			pwdverify = false;
+		    }
 		}
 		else
 		{
 		    pwdverify = false;
 		}
-
 	    }
+	    while (pwdverify == false)
+		;
 
 	}
+
+
+
+
 	return pwdverify;
+
     }
 
 
@@ -205,6 +218,8 @@ class MasterMindMethods
 	{
 	    code [count] = (int) (Math.random () * 9) + 1;
 	}
+
+
 	return code;
     }
 
@@ -234,6 +249,8 @@ class MasterMindMethods
 
 
 	}
+
+
 	return UserGuess;
     }
 
@@ -261,6 +278,8 @@ class MasterMindMethods
 		}
 	    }
 	}
+
+
 	System.out.println ("You got " + rightnumplace + " numbers in the right place.");
 	return rightnum;
     }
