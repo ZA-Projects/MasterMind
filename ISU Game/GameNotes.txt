@@ -1,0 +1,9 @@
+in program
+- gamewon 
+- guessCount
+
+need to incorporate
+- gamesplayed (gamesplayed += gamewon)
+-  gameslost (gamesplayed -= gameswon)
+- bestgame (totalguesses / gamesplayed)
+- totalguesses (totalguesses += guessCount)
