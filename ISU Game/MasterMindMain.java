@@ -4,7 +4,6 @@
 //     bestgame
 //     totalguesses
 
-
 import java.io.*;
 
 class MasterMindMain
