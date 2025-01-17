@@ -1,9 +1,9 @@
 // gamesplayed
-//     gameswon
+
 //     gameslost
 //     bestgame
 //     totalguesses
-// currentGameGuesses
+
 
 import java.io.*;
 
