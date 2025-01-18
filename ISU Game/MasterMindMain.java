@@ -28,12 +28,12 @@ class MasterMindMain
 	    while (pwdverify)
 	    {
 		int code[] = mmm.CodeGeneration ();
-		System.out.println ("Code generated (for debugging purposes):");
-		for (int count = 0 ; count < 5 ; count++)
-		{
-		    System.out.print (code [count] + " ");
-		}
-		System.out.println ();
+		// System.out.println ("Code generated (for debugging purposes):");
+		// for (int count = 0 ; count < 5 ; count++)
+		// {
+		//     System.out.print (code [count] + " ");
+		// }
+		// System.out.println ();
 
 		int[] [] board = new int [8] [5];
 		for (int count = 0 ; count < 8 ; count++)
